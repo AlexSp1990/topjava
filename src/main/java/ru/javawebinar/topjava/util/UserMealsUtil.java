@@ -24,8 +24,8 @@ public class UserMealsUtil {
                 new UserMeal(LocalDateTime.of(2015, Month.MAY, 31,13,0), "Обед", 500),
                 new UserMeal(LocalDateTime.of(2015, Month.MAY, 31,20,0), "Ужин", 510)
         );
-        System.out.println(getFilteredMealsWithExceeded(mealList, LocalTime.of(0, 0), LocalTime.of(19,0), 2000));
-        System.out.println(mealList);
+        System.out.println(getFilteredMealsWithExceeded(mealList, LocalTime.of(0, 0), LocalTime.of(11,0), 2000));
+//        System.out.println(mealList);
 //        .toLocalDate();
 //        .toLocalTime();
     }
@@ -34,11 +34,10 @@ public class UserMealsUtil {
 
         Map<LocalDate, Integer> dateAndSumCalor = mealList.stream().collect(Collectors.groupingBy(userMeal1 -> userMeal1.getDateTime().toLocalDate(), Collectors.summingInt(UserMeal::getCalories)));
 
-        return mealList.stream().map(userMeal -> new UserMealWithExceed(userMeal.getDateTime(),
+        return mealList.stream().filter(userMeal ->
+                LocalTime.of(userMeal.getDateTime().getHour(), userMeal.getDateTime().getMinute()).isAfter( startTime) &&
+                        LocalTime.of(userMeal.getDateTime().getHour(), userMeal.getDateTime().getMinute()).isBefore( endTime)).map(userMeal -> new UserMealWithExceed(userMeal.getDateTime(),
                 userMeal.getDescription(), userMeal.getCalories(), dateAndSumCalor.get(userMeal.getDateTime().toLocalDate()) <= caloriesPerDay)).
-                filter(userMealWithExceed ->
-                        LocalTime.of(userMealWithExceed.getDateTime().getHour(), userMealWithExceed.getDateTime().getMinute()).isAfter( startTime) &&
-                                LocalTime.of(userMealWithExceed.getDateTime().getHour(), userMealWithExceed.getDateTime().getMinute()).isBefore( endTime)).
                 collect(Collectors.toList());
 
     }
