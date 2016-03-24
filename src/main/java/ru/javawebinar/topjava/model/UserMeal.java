@@ -1,5 +1,7 @@
 package ru.javawebinar.topjava.model;
 
+import ru.javawebinar.topjava.to.UserMealWithExceed;
+
 import java.time.LocalDateTime;
 
 /**
@@ -25,6 +27,10 @@ public class UserMeal extends BaseEntity {
         this.calories = calories;
     }
 
+//    public UserMeal(UserMeal userMeal) {
+//        new UserMeal(userMeal.getId(), userMeal.getDateTime(), userMeal.getDescription(), userMeal.getCalories());
+//    }
+
     public LocalDateTime getDateTime() {
         return dateTime;
     }
@@ -46,4 +52,6 @@ public class UserMeal extends BaseEntity {
                 ", calories=" + calories +
                 '}';
     }
+
+
 }

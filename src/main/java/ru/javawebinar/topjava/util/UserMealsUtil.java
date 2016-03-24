@@ -26,6 +26,8 @@ public class UserMealsUtil {
 
     public static final int DEFAULT_CALORIES_PER_DAY = 2000;
 
+    public static final Comparator<UserMeal> USER_MEAL_COMPARATOR = Comparator.comparing(UserMeal::getDateTime);
+
     public static void main(String[] args) {
         List<UserMealWithExceed> filteredMealsWithExceeded = getFilteredWithExceeded(MEAL_LIST, LocalTime.of(7, 0), LocalTime.of(12, 0), DEFAULT_CALORIES_PER_DAY);
         filteredMealsWithExceeded.forEach(System.out::println);
@@ -46,6 +48,7 @@ public class UserMealsUtil {
 
         return mealList.stream()
                 .filter(um -> TimeUtil.isBetween(um.getDateTime().toLocalTime(), startTime, endTime))
+                .sorted((f1, f2) -> f2.getDateTime().compareTo(f1.getDateTime()))
                 .map(um -> createWithExceed(um, caloriesSumByDate.get(um.getDateTime().toLocalDate()) > caloriesPerDay))
                 .collect(Collectors.toList());
     }

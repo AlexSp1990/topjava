@@ -85,7 +85,7 @@ public class JdbcUserMealRepositoryImpl implements UserMealRepository {
 
     @Override
     public List<UserMeal> getBetween(LocalDateTime startDate, LocalDateTime endDate, int user_id) {
-        return jdbcTemplate.query("SELECT * FROM meals WHERE dateTime >= ? and dateTime <= ? and user_id = ? ORDER BY dateTime ",
+        return jdbcTemplate.query("SELECT * FROM meals WHERE dateTime >= ? and dateTime <= ? and user_id = ? ORDER BY dateTime DESC",
                 GetUserMealsResultSetExtractor(), Timestamp.valueOf(startDate), Timestamp.valueOf(endDate), user_id);
     }
 
