@@ -36,4 +36,10 @@ public class RootController {
         LoggedUser.setId(userId);
         return "redirect:meals";
     }
+
+//    @RequestMapping(value = "/meals", method = RequestMethod.GET)
+//    public String mealList(Model model) {
+//        model.addAttribute("mealList", service.getAll());
+//        return "mealList";
+//    }
 }
