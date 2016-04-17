@@ -29,6 +29,14 @@ public class UserMealWithExceed {
         this.exceed = exceed;
     }
 
+    public UserMealWithExceed() {
+        id = null;
+        dateTime = null;
+        description = null;
+        calories = 0;
+        exceed = false;
+    }
+
     public Integer getId() {
         return id;
     }
